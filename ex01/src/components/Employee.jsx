@@ -1,6 +1,7 @@
 import React from "react";
 
 const Employee = (props) => {
+  // 구조분해 이용
   const { no, name, dept } = props.emp;
   return (
     <div>

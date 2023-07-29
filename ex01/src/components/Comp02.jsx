@@ -13,6 +13,7 @@ const Comp02 = () => {
   return (
     <div>
       <h1>배열 출력</h1>
+      {/* employees의 내부 요소(객체)하나씩 반복 */}
       {employees.map((emp) => (
         <Employee key={emp.no} emp={emp}></Employee>
       ))}
