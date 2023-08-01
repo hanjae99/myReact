@@ -1,17 +1,7 @@
-// import logo from "./logo.svg";
 import { useState } from "react";
 import "./App.css";
-import Comp01 from "./components/Comp01";
-import Comp02 from "./components/Comp02";
-import Comp03 from "./components/Comp03";
-import Hello from "./components/Hello";
-import Student from "./components/Student";
-import Wrapper from "./components/Wrapper";
-import Counter from "./components/Counter";
-import Counter2 from "./components/Counter2";
 
 function Header(props) {
-  // console.log(props.title);
   return (
     <header>
       <h1>
@@ -72,7 +62,6 @@ function Create(props) {
           event.preventDefault();
           const title = event.target.title.value;
           const body = event.target.body.value;
-          // console.log(title, body);
           props.onCreate(title, body);
         }}
       >
@@ -89,44 +78,108 @@ function Create(props) {
     </article>
   );
 }
+function Update(props) {
+  const [title, setTitle] = useState(props.title);
+  const [body, setBody] = useState(props.body);
+  return (
+    <article>
+      <h2>Update</h2>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          const title = event.target.title.value;
+          const body = event.target.body.value;
+          props.onUpdate(title, body);
+        }}
+      >
+        <p>
+          <input
+            type="text"
+            name="title"
+            placeholder="title"
+            value={title}
+            onChange={(evt) => {
+              // console.log(evt.target.value);
+              setTitle(evt.target.value);
+            }}
+          />
+        </p>
+        <p>
+          <textarea
+            name="body"
+            placeholder="body"
+            value={body}
+            onChange={(evt) => {
+              setBody(evt.target.value);
+            }}
+          ></textarea>
+        </p>
+        <div>
+          <input type="submit" value="Update" />
+        </div>
+      </form>
+    </article>
+  );
+}
 function App() {
   // state : 동적인 상태 끼얹기
   const [mode, setMode] = useState("WELCOME");
   const [id, setId] = useState(null);
   const [nextId, setNextId] = useState(4);
   console.log(mode);
-  const name = "React";
-  const style = {
-    backgroundColor: "black",
-    color: "white",
-    fontSize: 24,
-    padding: "1rem", // 다른 단위 사용 시 문자열로 설정
-  };
+  console.log("***");
   const [topics, setTopics] = useState([
     { id: 1, title: "HTML", body: "HTML is ..." },
     { id: 2, title: "CSS", body: "CSS is ..." },
     { id: 3, title: "JS", body: "JS is ..." },
   ]);
-  // const topics = [
-  //   { id: 1, title: "HTML", body: "HTML is ..." },
-  //   { id: 2, title: "CSS", body: "CSS is ..." },
-  //   { id: 3, title: "JS", body: "JS is ..." },
-  // ];
 
   let content = null;
+  let contextControl = null;
   if (mode === "WELCOME") {
     content = <Article title="Welcome" body="Welcome, Web!!!"></Article>;
   } else if (mode === "READ") {
     let title,
       body = null;
     for (let i = 0; i < topics.length; i++) {
-      console.log(topics[i].id, id);
       if (topics[i].id === id) {
         title = topics[i].title;
         body = topics[i].body;
       }
     }
     content = <Article title={title} body={body}></Article>;
+    contextControl = (
+      <>
+        <li>
+          <a
+            href={"/update/" + id}
+            onClick={(evt) => {
+              evt.preventDefault();
+              setMode("UPDATE");
+            }}
+          >
+            Update
+          </a>
+        </li>
+        {/* Delete 구현 */}
+        <li>
+          <input
+            type="button"
+            value="Delete"
+            onClick={() => {
+              const newTopics = [];
+              for (let i = 0; i < topics.length; i++) {
+                if (topics[i].id !== id) {
+                  newTopics.push(topics[i]);
+                }
+              }
+              setTopics(newTopics);
+              setMode("WELCOME");
+            }}
+          />
+        </li>
+      </>
+    );
   } else if (mode === "CREATE") {
     content = (
       <Create
@@ -146,6 +199,35 @@ function App() {
         }}
       ></Create>
     );
+  } else if (mode === "UPDATE") {
+    let title,
+      body = null;
+    for (let i = 0; i < topics.length; i++) {
+      if (topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+
+    content = (
+      <Update
+        title={title}
+        body={body}
+        onUpdate={(_title, _body) => {
+          console.log(_title, _body);
+          const updateTopic = { id: id, title: _title, body: _body };
+          const newTopics = [...topics];
+          for (let i = 0; i < newTopics.length; i++) {
+            if (newTopics[i].id === id) {
+              newTopics[i] = updateTopic;
+              break;
+            }
+          }
+          setTopics(newTopics);
+          setMode("READ");
+        }}
+      ></Update>
+    );
   }
   return (
     <div>
@@ -163,28 +245,21 @@ function App() {
           setId(id);
         }}
       ></Nav>
-      {/* <div style={style}>{name}</div>
-      <div className="gray-box"></div>
-    <Student></Student> */}
-      {/* <Comp01></Comp01>
-      <Comp02></Comp02>
-      <Comp03></Comp03>
-      <Wrapper>
-      <Hello color="green" name="React" favoriteNum={123}></Hello>
-      <Hello color="red" name={123}></Hello>
-    </Wrapper> */}
-      {/* <Counter></Counter> */}
-      {/* <Counter2></Counter2> */}
-      <a
-        href="/create"
-        onClick={(event) => {
-          event.preventDefault();
-          setMode("CREATE");
-        }}
-      >
-        Create
-      </a>
       {content}
+      <ul style={{ marginTop: "20px" }}>
+        <li>
+          <a
+            href="/create"
+            onClick={(event) => {
+              event.preventDefault();
+              setMode("CREATE");
+            }}
+          >
+            Create
+          </a>
+        </li>
+        {contextControl}
+      </ul>
     </div>
   );
 }
