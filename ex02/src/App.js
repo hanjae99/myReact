@@ -77,18 +77,18 @@ export const App = () => {
   };
   return (
     <div>
-      {/* <InputSample></InputSample>
-      <EventHandling />
+      {/* <InputSample></InputSample> */}
+      {/* <EventHandling />
       <EventPractice />
       <InputSample2 />
-      <ValidationSample></ValidationSample> */}
+      <ValidationSample></ValidationSample>
       <CreateUser
         username={username}
         email={email}
         onChange={onChange}
         onCreate={onCreate}
       ></CreateUser>
-      <UserList users={users} onDelete={onDelete} onToggle={onToggle} />
+      <UserList users={users} onDelete={onDelete} onToggle={onToggle} /> */}
       {/* <RefLocal></RefLocal> */}
       <RefLocal2></RefLocal2>
     </div>
