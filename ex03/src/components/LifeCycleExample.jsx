@@ -13,17 +13,19 @@ class LifeCycleExample extends Component {
     console.log("3. componentDidMount...");
   }
 
-  // 업데이트 되고 나서 처리
+  // shouldComponentUpdate : true 일 시 함수 호출 및 리렌더링 업데이트 진행
+  // false 일 경우 함수 실행하지 않고 리렌더링도 하지 않음
   shouldComponentUpdate(nextProps, nextState) {
     console.log("2-0. shouldComponentUpdate...", nextProps, nextState);
     return nextState.number % 3 !== 0; /* 3의 배수가 아닌 경우에만 return */
   }
 
+  // 업데이트 후 처리
   componentDidUpdate(preProps, preState) {
     console.log("2-2. componentDidUpdate...", preProps, preState);
   }
 
-  // 언마운트 될 때 처리
+  // 해당 컴포넌트가 제거(언마운트) 되기 전 처리
   componentWillUnmount() {
     console.log("4. componentWillUnmount");
   }

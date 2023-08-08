@@ -27,10 +27,13 @@ const AverageCallback = () => {
     setNumber("");
   }, [list, number]);
 
+  // deps 가 빈 배열이므로 처음 렌더링 될때만 onChange 함수 생성
   const onChange = useCallback((e) => {
     setNumber(e.target.value);
   }, []);
 
+  // onChange 함수가 첫 렌더링 시에만 생성되므로
+  // 이후에 onChange 함수의 변화가 없어 useEffect 내부 함수 작동 x
   useEffect(() => {
     countRender.current += 1;
     console.log("onChange", countRender.current);

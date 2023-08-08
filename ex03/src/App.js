@@ -22,9 +22,9 @@ class App extends Component {
       //     {this.state.color}
       //   </button>
       // </div>
-      // <div>
-      //   <LifeCycleExample color={this.state.color} />
-      // </div>
+      <div>
+        <LifeCycleExample color={this.state.color} />
+      </div>
       // <div>
       //   <UseMemoEx1></UseMemoEx1>
       // </div>
@@ -40,9 +40,9 @@ class App extends Component {
       // <div>
       //   <BoxSize />
       // </div>
-      <div>
-        <AverageCallback />
-      </div>
+      // <div>
+      //   <AverageCallback />
+      // </div>
     );
   }
 }
