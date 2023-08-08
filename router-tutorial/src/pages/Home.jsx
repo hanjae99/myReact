@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 
 const Home = ({ data }) => {
   let lis = [];
+  let count = 0;
   for (let ele in data) {
+    count++;
     console.log(typeof ele);
+    console.log(count);
     lis.push(
-      <li key={ele}>
+      <li key={count}>
         <Link to={"/profile/" + ele}>{data[ele].name}</Link>
       </li>
     );
