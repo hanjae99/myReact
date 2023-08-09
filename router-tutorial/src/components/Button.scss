@@ -1,0 +1,76 @@
+$blue: #228be6; /* $ 로 변수처럼 활용 */
+$orange: orange;
+$pink: #f06595;
+
+@mixin button-color($color) {
+  background: $color;
+  &:hover {
+    background: lighten($color, 10%);
+  }
+  &:active {
+    background: darken($color, 10%);
+  }
+}
+
+.Btnwrapper {
+  width: 512px;
+  margin: 0 auto;
+  margin-top: 4rem;
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+.Button {
+  display: inline-flex;
+  color: white;
+  font-weight: bold;
+  outline: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  height: 2.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1rem;
+  line-height: 2.25rem;
+
+  // mixin 활용해 공통 css 부분 include 로 처리
+  &.pink {
+    @include button-color($pink);
+  }
+
+  &.blue {
+    @include button-color($blue);
+  }
+
+  &.orange {
+    @include button-color($orange);
+  }
+
+  &.large {
+    height: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.25rem;
+    line-height: 3rem;
+  }
+  &.medium {
+    height: 2.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1rem;
+    line-height: 2.25rem;
+  }
+  &.small {
+    height: 1.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.75rem;
+  }
+
+  & + & {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}
