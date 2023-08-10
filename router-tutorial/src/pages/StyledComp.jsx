@@ -16,6 +16,7 @@ const SimpleButton = styled.button`
 const LargeButton = styled(SimpleButton)`
   width: 400px;
   height: 200px;
+  font-size: 80px;
 `;
 
 const ReactButton = (props) => {

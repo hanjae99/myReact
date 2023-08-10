@@ -37,7 +37,7 @@ const Home = ({ data }) => {
           <Link to="/scss">Scss 스타일</Link>
         </li>
         <li>
-          <Link to="/check">체크박스</Link>
+          <Link to="/check">CSS 모듈 스타일링</Link>
         </li>
         <li>
           <Link to="/apisample">API Sample</Link>
