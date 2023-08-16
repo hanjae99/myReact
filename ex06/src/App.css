@@ -1,0 +1,15 @@
+#container,
+#grid div {
+  border: 5px solid red;
+  margin: 0 10px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+#grid {
+  display: flex;
+}
+
+#grid > div {
+  width: 50%;
+}
